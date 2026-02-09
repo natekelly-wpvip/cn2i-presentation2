@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)file:///Users/natekelly/Downloads/WordPress-VIP-CN2i-Presentation_4.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WordPress VIP × CN2i — A Platform Built to Last</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --vip-black: #13191E;
+  --vip-gold: #D8A45F;
+  --vip-gold-text: #9A6014;
+  --vip-gold-dim: rgba(216,164,95,0.12);
+  --vip-gold-border: rgba(216,164,95,0.2);
+  --white: #FFFFFF;
+  --parsely-green: #70AC1C;
+  --wp-blueberry: #3858E9;
+  --card-bg: #1A2028;
+  --card-border: rgba(255,255,255,0.06);
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-tertiary: rgba(255,255,255,0.3);
+  --caution-amber: #F59E0B;
+  --slide-transition: 0.65s cubic-bezier(0.65, 0, 0.35, 1);
+}
+html, body {
+  width: 100%; height: 100%;
+  font-family: 'Aktiv Grotesk', 'Inter', -apple-system, sans-serif;
+  background: var(--vip-black); color: var(--white);
+  overflow: hidden; -webkit-font-smoothing: antialiased;
+}
+
+/* ─── SLIDE SYSTEM ─── */
+.deck { position: relative; width: 100vw; height: 100vh; }
+.slide {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--slide-transition), transform var(--slide-transition);
+  transform: translateY(24px); padding: 60px 80px; overflow: hidden;
+}
+.slide.active { opacity: 1; pointer-events: all; transform: translateY(0); }
+
+.progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--vip-gold); transition: width 0.5s ease; z-index: 100; }
+.geo-lines {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 58px, rgba(216,164,95,0.025) 58px, rgba(216,164,95,0.025) 60px);
+}
+
+/* ─── NAV ─── */
+.nav {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 12px; align-items: center; z-index: 100;
+  background: rgba(19,25,30,0.92); backdrop-filter: blur(20px);
+  padding: 10px 20px; border-radius: 60px; border: 1px solid rgba(255,255,255,0.06);
+}
+.nav button { background: none; border: none; color: var(--white); cursor: pointer; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+.nav button:hover { background: rgba(216,164,95,0.1); }
+.nav button svg { width: 16px; height: 16px; }
+.nav .dots { display: flex; gap: 6px; }
+.nav .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.15); cursor: pointer; transition: 0.3s; }
+.nav .dot.active { background: var(--vip-gold); width: 22px; border-radius: 4px; }
+.slide-counter { font-size: 13px; color: var(--text-tertiary); font-variant-numeric: tabular-nums; min-width: 40px; text-align: center; }
+
+/* ─── TYPOGRAPHY — Brand: H1 95%/-4%, H2 105%/-2%, Body 125%/0% ─── */
+h1 { font-weight: 700; line-height: 0.95; letter-spacing: -0.04em; }
+h2 { font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }
+.label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; color: var(--vip-gold); margin-bottom: 16px; }
+.gold { color: var(--vip-gold); }
+.green { color: var(--parsely-green); }
+.blue { color: var(--wp-blueberry); }
+.amber { color: var(--caution-amber); }
+.vip-wordmark { position: relative; margin-bottom: 28px; font-size: 15px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--vip-gold); display: flex; align-items: center; gap: 12px; }
+.vip-wordmark .wm-bar { width: 24px; height: 2px; background: var(--vip-gold); opacity: 0.4; }
+.key-hint { position: fixed; bottom: 76px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--text-tertiary); z-index: 50; display: flex; gap: 14px; }
+.key-hint kbd { background: rgba(255,255,255,0.04); padding: 2px 7px; border-radius: 3px; font-family: inherit; border: 1px solid rgba(255,255,255,0.06); }
+
+/* ─── SHARED COMPONENTS ─── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; width: 100%; max-width: 1140px; align-items: center; }
+.card { background: var(--card-bg); border-radius: 14px; border: 1px solid var(--card-border); padding: 24px; transition: 0.25s; }
+.card:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+/* ─── SLIDE 0: TITLE ─── */
+.slide-title { text-align: center; }
+.slide-title .geo-circles { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.slide-title .geo-circles div { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border-radius: 50%; border: 1px solid rgba(216,164,95,0.05); }
+.slide-title .radial { position: absolute; top: -25%; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(216,164,95,0.06) 0%, transparent 65%); }
+.slide-title h1 { font-size: clamp(48px, 7vw, 92px); position: relative; }
+.slide-title .subtitle { font-size: 20px; color: var(--text-secondary); margin-top: 16px; position: relative; font-weight: 400; max-width: 600px; line-height: 1.5; }
+.slide-title .papers-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 36px; position: relative; }
+.paper-pill { padding: 10px 22px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.07); font-size: 15px; font-weight: 500; background: rgba(255,255,255,0.02); transition: 0.25s; }
+.paper-pill:hover { border-color: var(--vip-gold-border); background: var(--vip-gold-dim); }
+.slide-title .start-hint { position: absolute; bottom: 90px; font-size: 14px; color: var(--text-tertiary); animation: pulse 2.5s ease infinite; }
+@keyframes pulse { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.6; } }
+
+/* ─── SLIDE 1: THE MOMENT — Sympathetic framing ─── */
+.slide-moment { text-align: center; }
+.moment-content { position: relative; max-width: 800px; }
+.moment-content h2 { font-size: clamp(34px, 4.5vw, 56px); margin-bottom: 24px; }
+.moment-content .body-text { color: var(--text-secondary); font-size: 18px; line-height: 1.7; max-width: 680px; margin: 0 auto 36px; }
+
+.timeline { display: flex; flex-direction: column; gap: 0; max-width: 580px; margin: 0 auto; position: relative; }
+.timeline::before { content: ''; position: absolute; left: 15px; top: 12px; bottom: 12px; width: 1px; background: rgba(245,158,11,0.15); }
+.tl-item { display: flex; gap: 16px; align-items: flex-start; padding: 12px 0; }
+.tl-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; position: relative; z-index: 1; margin-left: 10px; }
+.tl-item .tl-content { flex: 1; }
+.tl-date { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-tertiary); margin-bottom: 3px; }
+.tl-text { font-size: 15px; color: var(--text-secondary); line-height: 1.5; }
+.tl-text strong { color: var(--white); font-weight: 600; }
+
+/* ─── SLIDE 2: WHY WPVIP — Ownership model comparison ─── */
+.slide-why {}
+.why-header { text-align: center; margin-bottom: 36px; max-width: 700px; }
+.why-header h2 { font-size: clamp(32px, 4vw, 52px); margin-bottom: 12px; }
+.why-header p { color: var(--text-secondary); font-size: 17px; line-height: 1.6; }
+
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; max-width: 1040px; }
+.compare-card { border-radius: 14px; padding: 28px; position: relative; overflow: hidden; }
+.compare-card.arc { background: rgba(245,158,11,0.04); border: 1px solid rgba(245,158,11,0.12); }
+.compare-card.vip { background: rgba(216,164,95,0.04); border: 1px solid var(--vip-gold-border); }
+.compare-card .cc-badge { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; display: inline-block; padding: 4px 12px; border-radius: 20px; }
+.compare-card.arc .cc-badge { color: var(--caution-amber); background: rgba(245,158,11,0.1); }
+.compare-card.vip .cc-badge { color: var(--vip-gold); background: var(--vip-gold-dim); }
+.compare-card .cc-title { font-size: 22px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.02em; }
+.cc-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+.cc-icon { font-size: 15px; margin-top: 2px; flex-shrink: 0; width: 22px; text-align: center; }
+.cc-text { font-size: 15px; color: var(--text-secondary); line-height: 1.5; }
+.cc-text strong { color: var(--white); font-weight: 500; }
+
+/* ─── SLIDE 3: COOPERATIVE FIT ─── */
+.slide-coop {}
+.coop-layout { width: 100%; max-width: 1100px; }
+.coop-header { margin-bottom: 32px; }
+.coop-header h2 { font-size: clamp(32px, 4vw, 52px); margin-bottom: 12px; }
+.coop-header p { color: var(--text-secondary); font-size: 17px; max-width: 640px; }
+
+.coop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.coop-card { background: var(--card-bg); border-radius: 14px; border: 1px solid var(--card-border); padding: 26px; transition: 0.25s; }
+.coop-card:hover { border-color: var(--vip-gold-border); transform: translateY(-3px); }
+.coop-card .cc-num { font-size: 36px; font-weight: 700; color: var(--vip-gold); margin-bottom: 8px; letter-spacing: -0.03em; }
+.coop-card .cc-name { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.coop-card .cc-desc { font-size: 14.5px; color: var(--text-secondary); line-height: 1.5; }
+
+/* Interactive multisite selector */
+.multisite-demo { margin-top: 24px; background: var(--card-bg); border-radius: 14px; border: 1px solid var(--card-border); padding: 24px; }
+.ms-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.ms-title { font-size: 15px; font-weight: 500; color: var(--text-tertiary); letter-spacing: 0.3px; }
+.ms-tabs { display: flex; gap: 3px; background: rgba(255,255,255,0.02); border-radius: 8px; padding: 3px; }
+.ms-tab { padding: 8px 16px; border-radius: 6px; border: none; background: none; color: var(--text-tertiary); font-size: 13px; font-weight: 500; cursor: pointer; transition: 0.2s; font-family: inherit; }
+.ms-tab.active { background: rgba(255,255,255,0.07); color: var(--white); }
+.ms-content { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.ms-stat { text-align: center; padding: 16px; background: rgba(255,255,255,0.02); border-radius: 10px; border: 1px solid rgba(255,255,255,0.04); }
+.ms-stat .ms-val { font-size: 26px; font-weight: 700; margin-bottom: 2px; letter-spacing: -0.02em; }
+.ms-stat .ms-label { font-size: 13px; color: var(--text-tertiary); }
+
+/* ─── SLIDE 4: FEATURES ─── */
+.slide-features {}
+.feat-layout { width: 100%; max-width: 1140px; }
+.feat-header { margin-bottom: 28px; }
+.feat-header h2 { font-size: clamp(32px, 4vw, 50px); margin-bottom: 10px; }
+.feat-header p { color: var(--text-secondary); font-size: 17px; }
+
+.feat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.feat-card { background: var(--card-bg); border-radius: 14px; border: 1px solid var(--card-border); padding: 26px; transition: 0.3s; cursor: default; }
+.feat-card:hover { border-color: var(--vip-gold-border); transform: translateY(-2px); }
+.feat-card .fc-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.feat-card .fc-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.feat-card .fc-name { font-size: 17px; font-weight: 600; }
+.feat-card .fc-desc { font-size: 14.5px; color: var(--text-secondary); line-height: 1.6; }
+.feat-card .fc-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.fc-pill { padding: 6px 13px; border-radius: 30px; font-size: 12.5px; font-weight: 500; border: 1px solid rgba(255,255,255,0.06); color: var(--text-secondary); background: rgba(255,255,255,0.02); }
+
+/* ─── SLIDE 5: MIGRATION ─── */
+.slide-migration {}
+.mig-layout { width: 100%; max-width: 1000px; }
+.mig-header { text-align: center; margin-bottom: 36px; }
+.mig-header h2 { font-size: clamp(32px, 4vw, 52px); margin-bottom: 10px; }
+.mig-header p { color: var(--text-secondary); font-size: 17px; max-width: 600px; margin: 0 auto; }
+
+.mig-steps { display: flex; gap: 0; position: relative; justify-content: center; }
+.mig-steps::before { content: ''; position: absolute; top: 38px; left: 15%; right: 15%; height: 2px; background: rgba(216,164,95,0.1); }
+.mig-step { flex: 1; max-width: 220px; text-align: center; position: relative; }
+.mig-step .ms-circle { width: 44px; height: 44px; border-radius: 50%; background: var(--vip-gold-dim); border: 2px solid var(--vip-gold-border); display: flex; align-items: center; justify-content: center; margin: 16px auto 14px; font-size: 16px; font-weight: 700; color: var(--vip-gold); position: relative; z-index: 1; }
+.mig-step .ms-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.mig-step .ms-desc { font-size: 14px; color: var(--text-tertiary); line-height: 1.4; }
+
+.mig-quote { margin-top: 40px; text-align: center; max-width: 680px; margin-left: auto; margin-right: auto; }
+.mig-quote blockquote { font-size: 19px; font-style: italic; color: var(--text-secondary); line-height: 1.6; margin-bottom: 10px; }
+.mig-quote cite { font-size: 14px; color: var(--text-tertiary); font-style: normal; }
+
+/* ─── SLIDE 6: SUMMARY ─── */
+.slide-summary { text-align: center; }
+.slide-summary .geo-bg { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, transparent, transparent 78px, rgba(216,164,95,0.012) 78px, rgba(216,164,95,0.012) 80px), repeating-linear-gradient(-45deg, transparent, transparent 78px, rgba(216,164,95,0.012) 78px, rgba(216,164,95,0.012) 80px); }
+.slide-summary .radial { position: absolute; bottom: -35%; left: 50%; transform: translateX(-50%); width: 900px; height: 900px; background: radial-gradient(circle, rgba(216,164,95,0.05) 0%, transparent 65%); }
+.slide-summary h2 { font-size: clamp(36px, 5vw, 62px); position: relative; margin-bottom: 32px; }
+.sum-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 900px; position: relative; margin-bottom: 40px; }
+.sum-card { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 14px; padding: 26px; text-align: center; transition: 0.3s; }
+.sum-card:hover { transform: translateY(-4px); border-color: var(--vip-gold-border); }
+.sum-card .sc-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 22px; }
+.sum-card .sc-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.sum-card .sc-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+.cta-row { position: relative; display: flex; gap: 14px; justify-content: center; }
+.cta-btn { padding: 14px 32px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: inherit; border: none; }
+.cta-btn.primary { background: var(--vip-gold); color: var(--vip-black); }
+.cta-btn.primary:hover { background: #C9944F; transform: translateY(-2px); }
+.cta-btn.secondary { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: var(--white); }
+.cta-btn.secondary:hover { background: rgba(255,255,255,0.08); }
+
+@media (max-width: 900px) {
+  .slide { padding: 36px 24px; }
+  .two-col, .compare-grid, .feat-grid { grid-template-columns: 1fr; }
+  .coop-grid, .sum-grid { grid-template-columns: 1fr 1fr; }
+  .mig-steps { flex-direction: column; align-items: center; }
+  .mig-steps::before { display: none; }
+  .ms-content { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ PASSWORD GATE ═══ -->
+
+
+<script>
+function checkPassword() {
+  const input = document.getElementById('passwordInput');
+  if (input.value === 'WordPress') {
+    const gate = document.getElementById('passwordGate');
+    gate.style.opacity = '0';
+    gate.style.visibility = 'hidden';
+    setTimeout(() => gate.remove(), 500);
+  } else {
+    const err = document.getElementById('passwordError');
+    err.style.opacity = '1';
+    input.style.borderColor = '#EF4444';
+    setTimeout(() => { err.style.opacity = '0'; input.style.borderColor = 'rgba(255,255,255,0.1)'; }, 2000);
+  }
+}
+document.addEventListener('DOMContentLoaded', () => document.getElementById('passwordInput').focus());
+</script>
+
+<div class="progress-bar" id="progressBar" style="width: 14.2857%;"></div>
+
+<div class="deck" id="deck">
+
+  <!-- ═══ SLIDE 0: TITLE ═══ -->
+  <div class="slide slide-title active" data-slide="0">
+    <div class="geo-lines"></div>
+    <div class="geo-circles">
+      <div style="width:600px;height:600px;"></div>
+      <div style="width:480px;height:480px;"></div>
+      <div style="width:360px;height:360px;"></div>
+      <div style="width:720px;height:720px;"></div>
+    </div>
+    <div style="position:absolute;top:-25%;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(216,164,95,0.06) 0%,transparent 65%);"></div>
+    <div class="vip-wordmark"><div class="wm-bar"></div>WORDPRESS VIP<div class="wm-bar"></div></div>
+    <h1 style="position:relative;">A platform built<br>to <span class="gold">last</span></h1>
+    <p class="subtitle" style="position:relative;">Stability, open-source ownership, and publisher-first innovation for CN2i and Quebec's regional journalism</p>
+    <div class="papers-row">
+      <div class="paper-pill">Le Soleil</div>
+      <div class="paper-pill">Le Droit</div>
+      <div class="paper-pill">La Tribune</div>
+      <div class="paper-pill">Le Nouvelliste</div>
+      <div class="paper-pill">Le Quotidien</div>
+      <div class="paper-pill">La Voix de l'Est</div>
+    </div>
+    <div class="start-hint">Press → or click to begin</div>
+  </div>
+
+  <!-- ═══ SLIDE 1: THE MOMENT ═══ -->
+  <div class="slide slide-moment" data-slide="1">
+    <div class="geo-lines"></div>
+    <div class="moment-content">
+      <div class="label">The Current Landscape</div>
+      <h2>Your CMS partner<br>should be <span class="gold">as resilient</span> as you are</h2>
+      <p class="body-text">CN2i was born from resilience — a cooperative built to protect regional journalism when others walked away. Your CMS platform should reflect that same commitment to longevity. Recent events at Arc XP raise important questions about long-term platform stability.</p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--caution-amber);"></div>
+          <div class="tl-content">
+            <div class="tl-date">August 2023</div>
+            <div class="tl-text">Washington Post <strong>lays off Arc XP staff</strong> while declining acquisition offers</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--caution-amber);"></div>
+          <div class="tl-content">
+            <div class="tl-date">September 2024</div>
+            <div class="tl-text"><strong>54 employees cut</strong> — 25% of Arc XP workforce — described as a "hard but necessary step"</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:#EF4444;"></div>
+          <div class="tl-content">
+            <div class="tl-date">February 2026</div>
+            <div class="tl-text"><strong>75 more employees laid off</strong> as Washington Post cuts a third of total staff. Arc XP described as "still losing money" despite a decade of customer growth</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--text-tertiary);"></div>
+          <div class="tl-content">
+            <div class="tl-date">The question</div>
+            <div class="tl-text">When your CMS vendor's parent is in financial distress, <strong>what happens to product investment, support, and your roadmap?</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 2: OWNERSHIP MODEL ═══ -->
+  <div class="slide slide-why" data-slide="2">
+    <div class="geo-lines"></div>
+    <div class="why-header">
+      <div class="label">Ownership &amp; Stability</div>
+      <h2>Two very different<br><span class="gold">ownership models</span></h2>
+      <p>The platform powering your newsrooms should have a business model that sustains itself — not one that depends on a struggling newspaper's balance sheet.</p>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card arc">
+        <div class="cc-badge">Arc XP — Washington Post</div>
+        <div class="cc-title" style="color:var(--caution-amber);">Tied to a single publisher</div>
+        <div class="cc-row"><div class="cc-icon">⚠️</div><div class="cc-text"><strong>Owned by The Washington Post</strong> — a paper losing tens of millions annually since 2023</div></div>
+        <div class="cc-row"><div class="cc-icon">⚠️</div><div class="cc-text"><strong>Repeated layoffs</strong> across 2023, 2024, and 2026 — cumulative loss of 130+ staff</div></div>
+        <div class="cc-row"><div class="cc-icon">⚠️</div><div class="cc-text"><strong>Still unprofitable</strong> despite a decade of growth — passed on sale opportunities during pandemic</div></div>
+        <div class="cc-row"><div class="cc-icon">⚠️</div><div class="cc-text"><strong>Proprietary &amp; closed</strong> — developer-intensive, limited extensibility outside Arc ecosystem</div></div>
+        <div class="cc-row"><div class="cc-icon">⚠️</div><div class="cc-text"><strong>Revenue decline</strong> — WaPo total revenue down 12% since 2021, subscribers fell from 3M to 2.5M</div></div>
+      </div>
+
+      <div class="compare-card vip">
+        <div class="cc-badge">WordPress VIP — Automattic</div>
+        <div class="cc-title" style="color:var(--vip-gold);">Built on the open web</div>
+        <div class="cc-row"><div class="cc-icon">✓</div><div class="cc-text"><strong>Backed by Automattic</strong> — private, profitable, 2,000+ employees, long-term focus</div></div>
+        <div class="cc-row"><div class="cc-icon">✓</div><div class="cc-text"><strong>WordPress powers 43%+ of the web</strong> — the largest open-source CMS ecosystem in history</div></div>
+        <div class="cc-row"><div class="cc-icon">✓</div><div class="cc-text"><strong>Publisher-first investment</strong> — collaborative editing, Parse.ly analytics, MCP AI integration all shipping in 2025–2026</div></div>
+        <div class="cc-row"><div class="cc-icon">✓</div><div class="cc-text"><strong>Open source = no lock-in</strong> — your content, your code, your choice. Forever portable</div></div>
+        <div class="cc-row"><div class="cc-icon">✓</div><div class="cc-text"><strong>FedRAMP authorized</strong> — the only WordPress platform with government-grade security certification</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 3: COOPERATIVE FIT ═══ -->
+  <div class="slide slide-coop" data-slide="3">
+    <div class="geo-lines"></div>
+    <div class="coop-layout">
+      <div class="coop-header">
+        <div class="label">Built for Cooperatives</div>
+        <h2>Six papers, one platform,<br><span class="gold">total autonomy</span></h2>
+        <p>WordPress VIP's multisite architecture mirrors CN2i's cooperative structure — each publication operates independently while sharing infrastructure, costs, and innovation.</p>
+      </div>
+
+      <div class="coop-grid">
+        <div class="coop-card">
+          <div class="cc-num">6→1</div>
+          <div class="cc-name">Unified Multisite</div>
+          <div class="cc-desc">All six titles on a single WordPress VIP instance with independent editorial control, themes, and workflows per publication</div>
+        </div>
+        <div class="coop-card">
+          <div class="cc-num">30K+</div>
+          <div class="cc-name">Digital Subscribers</div>
+          <div class="cc-desc">Parse.ly analytics across all titles with per-publication dashboards — headline testing, engagement tracking, and subscriber conversion data</div>
+        </div>
+        <div class="coop-card">
+          <div class="cc-num">100%</div>
+          <div class="cc-name">Content Portability</div>
+          <div class="cc-desc">Open-source foundation means your content is never locked in. Export, migrate, extend — your journalism belongs to your communities</div>
+        </div>
+      </div>
+
+      <div class="multisite-demo">
+        <div class="ms-header">
+          <div class="ms-title">WordPress VIP Multisite Dashboard — CN2i Network</div>
+          <div class="ms-tabs">
+            <button class="ms-tab active" data-paper="soleil" onclick="switchPaper(&#39;soleil&#39;)">Le Soleil</button>
+            <button class="ms-tab" data-paper="droit" onclick="switchPaper(&#39;droit&#39;)">Le Droit</button>
+            <button class="ms-tab" data-paper="tribune" onclick="switchPaper(&#39;tribune&#39;)">La Tribune</button>
+            <button class="ms-tab" data-paper="nouvelliste" onclick="switchPaper(&#39;nouvelliste&#39;)">Le Nouvelliste</button>
+            <button class="ms-tab" data-paper="quotidien" onclick="switchPaper(&#39;quotidien&#39;)">Le Quotidien</button>
+            <button class="ms-tab" data-paper="voix" onclick="switchPaper(&#39;voix&#39;)">La Voix</button>
+          </div>
+        </div>
+        <div class="ms-content">
+          <div class="ms-stat"><div class="ms-val" id="msArticles">148</div><div class="ms-label">Articles / week</div></div>
+          <div class="ms-stat"><div class="ms-val" id="msViews">1.2M</div><div class="ms-label">Monthly views</div></div>
+          <div class="ms-stat"><div class="ms-val" id="msEditors">24</div><div class="ms-label">Active editors</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 4: FEATURES ═══ -->
+  <div class="slide slide-features" data-slide="4">
+    <div class="geo-lines"></div>
+    <div class="feat-layout">
+      <div class="feat-header">
+        <div class="label">Platform Capabilities</div>
+        <h2>Everything CN2i needs,<br><span class="gold">nothing it doesn't</span></h2>
+        <p>Enterprise features built for publishers — not retrofitted from a single newsroom's internal tools.</p>
+      </div>
+
+      <div class="feat-grid">
+        <div class="feat-card">
+          <div class="fc-top">
+            <div class="fc-icon" style="background:var(--vip-gold-dim);">✍️</div>
+            <div class="fc-name">Collaborative Editing</div>
+          </div>
+          <div class="fc-desc">Real-time co-authoring inside WordPress — live cursors, presence indicators, inline notes, and suggested edits. Your journalists and editors work together on the same draft without leaving the CMS.</div>
+          <div class="fc-pills">
+            <div class="fc-pill">Live co-authoring</div>
+            <div class="fc-pill">Inline notes</div>
+            <div class="fc-pill">Version control</div>
+          </div>
+        </div>
+        <div class="feat-card">
+          <div class="fc-top">
+            <div class="fc-icon" style="background:rgba(112,172,28,0.1);">📊</div>
+            <div class="fc-name">Parse.ly Content Intelligence</div>
+          </div>
+          <div class="fc-desc">Analytics built directly into the editor. Understand which stories resonate in Quebec City vs. Sherbrooke vs. Gatineau. Headline testing auto-promotes the best-performing variant.</div>
+          <div class="fc-pills">
+            <div class="fc-pill">Per-title dashboards</div>
+            <div class="fc-pill">Headline testing</div>
+            <div class="fc-pill">Engagement metrics</div>
+          </div>
+        </div>
+        <div class="feat-card">
+          <div class="fc-top">
+            <div class="fc-icon" style="background:rgba(56,88,233,0.1);">🤖</div>
+            <div class="fc-name">AI &amp; MCP Integration</div>
+          </div>
+          <div class="fc-desc">Model Context Protocol connects AI agents to your CMS securely. Automate content optimization, generate summaries, and query your analytics — all with enterprise governance and audit trails.</div>
+          <div class="fc-pills">
+            <div class="fc-pill">MCP Adapter</div>
+            <div class="fc-pill">Abilities API</div>
+            <div class="fc-pill">AI content generation</div>
+          </div>
+        </div>
+        <div class="feat-card">
+          <div class="fc-top">
+            <div class="fc-icon" style="background:var(--vip-gold-dim);">🌐</div>
+            <div class="fc-name">Global CDN &amp; Security</div>
+          </div>
+          <div class="fc-desc">28 data centers worldwide including Toronto. Auto-scaling handles traffic spikes on breaking news. DDoS protection, Cloudflare Enterprise, and SOC 2 / FedRAMP compliance included.</div>
+          <div class="fc-pills">
+            <div class="fc-pill">28 data centers</div>
+            <div class="fc-pill">Auto-scaling</div>
+            <div class="fc-pill">FedRAMP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 5: MIGRATION ═══ -->
+  <div class="slide slide-migration" data-slide="5">
+    <div class="geo-lines"></div>
+    <div class="mig-layout">
+      <div class="mig-header">
+        <div class="label">Path Forward</div>
+        <h2>A clear path<br>from <span class="amber">Arc XP</span> to <span class="gold">WordPress VIP</span></h2>
+        <p>WordPress VIP's professional services team has migrated hundreds of enterprise publishers. CN2i's six-title multisite is a configuration we know well.</p>
+      </div>
+
+      <div class="mig-steps">
+        <div class="mig-step">
+          <div class="ms-circle">1</div>
+          <div class="ms-name">Discovery</div>
+          <div class="ms-desc">Audit current Arc XP setup, content models, and integrations</div>
+        </div>
+        <div class="mig-step">
+          <div class="ms-circle">2</div>
+          <div class="ms-name">Architecture</div>
+          <div class="ms-desc">Design multisite structure mirroring CN2i's cooperative model</div>
+        </div>
+        <div class="mig-step">
+          <div class="ms-circle">3</div>
+          <div class="ms-name">Migration</div>
+          <div class="ms-desc">Full content migration with URL preservation and SEO integrity</div>
+        </div>
+        <div class="mig-step">
+          <div class="ms-circle">4</div>
+          <div class="ms-name">Launch</div>
+          <div class="ms-desc">Concierge onboarding, training, and 24/7 launch day support</div>
+        </div>
+      </div>
+
+      <div class="mig-quote">
+        <blockquote>"We have enormously improved our efficiency since we don't need additional teams or third parties to support our infrastructure."</blockquote>
+        <cite>— WordPress VIP Enterprise Customer</cite>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 6: CLOSING ═══ -->
+  <div class="slide slide-summary" data-slide="6">
+    <div class="geo-bg"></div>
+    <div class="radial"></div>
+    <div class="vip-wordmark" style="position:relative;"><div class="wm-bar"></div>WORDPRESS VIP<div class="wm-bar"></div></div>
+    <h2 style="position:relative;">CN2i deserves a platform<br>as <span class="gold">committed</span> as its mission</h2>
+    <div class="sum-grid">
+      <div class="sum-card">
+        <div class="sc-icon" style="background:var(--vip-gold-dim);">🏛️</div>
+        <div class="sc-title">Ownership You Can Trust</div>
+        <div class="sc-desc">Open-source foundation backed by Automattic — profitable, private, and investing in publishers for the long term</div>
+      </div>
+      <div class="sum-card">
+        <div class="sc-icon" style="background:var(--vip-gold-dim);">🤝</div>
+        <div class="sc-title">Built for Cooperatives</div>
+        <div class="sc-desc">Multisite architecture gives each paper autonomy while sharing costs, infrastructure, and innovation across CN2i</div>
+      </div>
+      <div class="sum-card">
+        <div class="sc-icon" style="background:var(--vip-gold-dim);">🔓</div>
+        <div class="sc-title">No Lock-In, Ever</div>
+        <div class="sc-desc">Your content, your code, your future. Open source means CN2i's journalism always belongs to its communities</div>
+      </div>
+    </div>
+    <div class="cta-row">
+      <button class="cta-btn primary" onclick="window.open(&#39;https://wpvip.com&#39;,&#39;_blank&#39;)">Explore WordPress VIP</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button onclick="prev()" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg></button>
+  <div class="dots" id="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  <span class="slide-counter" id="slideCounter">1 / 7</span>
+  <button onclick="next()" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg></button>
+</div>
+<div class="key-hint"><span><kbd>←</kbd> <kbd>→</kbd> Navigate</span><span><kbd>Space</kbd> Next</span></div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+let current = 0;
+function goTo(n) {
+  if (n < 0 || n >= totalSlides) return;
+  slides[current].classList.remove('active');
+  current = n;
+  slides[current].classList.add('active');
+  updateUI();
+}
+function next() { goTo(current + 1); }
+function prev() { goTo(current - 1); }
+function updateUI() {
+  document.getElementById('progressBar').style.width = ((current+1)/totalSlides*100)+'%';
+  document.getElementById('slideCounter').textContent = `${current+1} / ${totalSlides}`;
+  document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i===current));
+}
+const dotsEl = document.getElementById('dots');
+for (let i = 0; i < totalSlides; i++) { const d = document.createElement('div'); d.className = 'dot'+(i===0?' active':''); d.onclick = () => goTo(i); dotsEl.appendChild(d); }
+updateUI();
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); next(); }
+  if (e.key==='ArrowLeft') { e.preventDefault(); prev(); }
+});
+let touchX=0;
+document.addEventListener('touchstart', e => { touchX=e.touches[0].clientX; });
+document.addEventListener('touchend', e => { const dx=e.changedTouches[0].clientX-touchX; if(Math.abs(dx)>50){ dx<0?next():prev(); } });
+
+// Multisite paper switcher
+const paperData = {
+  soleil:      { articles: '148', views: '1.2M', editors: '24', city: 'Québec City' },
+  droit:       { articles: '112', views: '890K', editors: '18', city: 'Gatineau' },
+  tribune:     { articles: '96',  views: '620K', editors: '15', city: 'Sherbrooke' },
+  nouvelliste: { articles: '84',  views: '540K', editors: '13', city: 'Trois-Rivières' },
+  quotidien:   { articles: '78',  views: '480K', editors: '12', city: 'Chicoutimi' },
+  voix:        { articles: '52',  views: '310K', editors: '8',  city: 'Granby' },
+};
+function switchPaper(paper) {
+  document.querySelectorAll('.ms-tab').forEach(t => t.classList.toggle('active', t.dataset.paper === paper));
+  const d = paperData[paper];
+  document.getElementById('msArticles').textContent = d.articles;
+  document.getElementById('msViews').textContent = d.views;
+  document.getElementById('msEditors').textContent = d.editors;
+}
+</script>
+
+
+</body></html>
